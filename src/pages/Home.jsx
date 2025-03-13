@@ -3,18 +3,11 @@ import Navbar from './shared/Navbar';
 import LeftSideNav from './shared/LeftSideNav/LeftSideNav';
 import RightSideNav from './shared/RightSideNav/RightSideNav';
 import BrakingNews from './BrakingNews';
-import { useEffect, useState } from 'react';
 import NewsContainer from './NewsContainer';
+import { useLoaderData } from 'react-router';
 
 const Home = () => {
-    const [news, setNews] = useState([]);
-
-    useEffect(() => {
-        fetch('news.json')
-            .then(res => res.json())
-            .then(data => setNews(data))
-    }, [])
-
+    const newsData = useLoaderData();
     return (
         <div>
             <Header></Header>
@@ -29,7 +22,7 @@ const Home = () => {
                     <h2 className="">Dragon News Home</h2>
 
                     {
-                        news.map(info => <NewsContainer key={info._id} info={info}></NewsContainer>)
+                        newsData.map(info => <NewsContainer key={info._id} info={info}></NewsContainer>)
                     }
 
                 </div>

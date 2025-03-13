@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
-import { CiBookmark } from "react-icons/ci";    
+import { CiBookmark } from "react-icons/ci";
 import { CiShare2 } from "react-icons/ci";
 import { RiEyeFill } from "react-icons/ri";
+import { Link } from "react-router";
 
 
 const NewsContainer = ({ info }) => {
-    const [allText, setAllText] = useState(false);
 
-    console.log(info)
-    const { author, details, image_url, rating, title, total_view } = info;
+    const { author, details, image_url, rating, title, total_view, _id } = info;
     return (
         <div>
             <div className='mb-4 mt-8 flex justify-between'>
@@ -28,8 +26,11 @@ const NewsContainer = ({ info }) => {
             </div>
             <p className='text-xl font-semibold'>{title}</p>
             <img src={image_url} alt="" />
-            <p>{allText ? details : details.slice(0, 500) + '........'}</p>
-            <p onClick={() => setAllText(!allText)} className='text-yellow-400 cursor-pointer border-b pb-3'>{allText ? 'Read Less' : 'Read More'}</p>
+            <span className='cursor-pointer border-b pb-3'>
+                {
+                    details.length > 200 ? <p>{details.slice(0, 200)} <Link to={`/info/${_id}`} className="text-blue-600 font-bold">Read More....</Link></p> : <p>{details}</p>
+                }
+            </span>
 
             <div className='flex items-center justify-between mt-6'>
                 <div className='flex items-center gap-8'>
